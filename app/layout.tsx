@@ -21,8 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-[url('/background.png')] bg-cover bg-center min-h-screen ${quicksand.className}`}
+        className={`relative bg-[url('/background.png')] bg-cover bg-center min-h-screen ${quicksand.className}`}
       >
+        <div className="absolute top-36 -z-50">
+          <img src="/voiceline.svg" alt="voiceline" className="object-cover" />
+        </div>
         <div className="max-w-[1024px] mx-auto">
           <Header />
           {children}
