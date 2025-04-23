@@ -11,7 +11,7 @@ const navItems = [
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center px-12 py-1 rounded-[40px] bg-[url('/header_background.png')] bg-cover bg-center">
+    <header className="fixed w-[1024px] mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-[url('/header_background.png')] bg-cover bg-center">
       <div className="relative h-[80px] w-[240px]">
         <Image src="/logo/VoyaVox_logo2_cropped.png" alt="logo" fill />
       </div>
@@ -21,7 +21,7 @@ const Header = () => {
           <Link
             key={index}
             href={item.href}
-            className="text-navy font-semibold"
+            className="text-navy font-bold"
           >
             {item.label}
           </Link>
@@ -29,7 +29,7 @@ const Header = () => {
       </nav>
 
       <div>
-        <Link href="/" className="text-navy rounded-[40px] border border-navy px-8 py-2 font-semibold">
+        <Link href="/" className="text-navy rounded-[40px] border border-navy px-8 py-2 font-bold">
           Demo
         </Link>
       </div>
