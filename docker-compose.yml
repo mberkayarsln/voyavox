@@ -1,0 +1,15 @@
+services:
+  frontend:
+    image: voyavox_frontend
+    container_name: voyavox_frontend_container
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        NODE_ENV: production
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_TELEMETRY_DISABLED: "1"
+      PORT: 3000
+    restart: always
