@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { RiArrowDownWideLine } from "react-icons/ri";
+import Link from "next/link";
+import LogoSlider from "@/components/LogoSlider";
+
 
 export default function Home() {
   return (
@@ -33,9 +35,7 @@ export default function Home() {
 
         </div>
 
-        <div className="bg-[url('/logo_slider_background.png')] bg-cover bg-center h-[90px] w-[1024px] rounded-[40px]">
-          
-        </div>
+        <LogoSlider />
       </div>
 
     </div>
