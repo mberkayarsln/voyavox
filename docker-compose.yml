@@ -13,3 +13,7 @@ services:
       NEXT_TELEMETRY_DISABLED: "1"
       PORT: 3000
     restart: always
+
+networks:
+  frontend-network:
+    name: frontend-network
