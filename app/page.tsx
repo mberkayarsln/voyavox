@@ -40,8 +40,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="demo-1" className="flex flex-col justify-between items-center mt-44 pb-3">
-        
+      <section id="demo-1">
+
       </section>
 
     </main>
