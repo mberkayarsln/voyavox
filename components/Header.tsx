@@ -11,7 +11,7 @@ const navItems = [
 
 const Header = () => {
   return (
-    <header className="fixed w-[1024px] mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-[url('/header_background.png')] bg-cover bg-center">
+    <header className="fixed w-[1024px] mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-transparent z-50">
       <div className="relative h-[80px] w-[240px]">
         <Image src="/logo/VoyaVox_logo2_cropped.png" alt="logo" fill />
       </div>

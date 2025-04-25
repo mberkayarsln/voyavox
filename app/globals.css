@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    scroll-behavior: smooth;
+}
+
 @keyframes marquee {
     to {
         transform: translateX(calc(-100% - 106px));

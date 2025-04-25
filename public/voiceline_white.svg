@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="DecorativeLine" width="1440" height="438" viewBox="0 0 1440 438" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; max-height: 100%;">
+  <path d="M0 437C89.6961 275.719 169.666 141.06 262.064 130.257C354.462 119.453 392.285 220.158 456.045 220.158C519.805 220.158 550.604 173.857 571.137 130.257C591.67 86.6566 632.736 1 710.004 1C787.272 1 825.096 92.0584 844.548 130.257C864 168.455 915.873 247.938 988.278 247.938C1060.68 247.938 1082.3 203.34 1150.92 208.968C1219.54 214.597 1243.86 283.05 1315.18 283.05C1386.51 283.05 1373.54 230.575 1440 230.575" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0,0,1876.26123046875">
+    <animate attributeName="stroke-dasharray" repeatCount="indefinite" dur="4s" values="0,0,0,1876.26123046875; &#10;          0,938.130615234375,938.130615234375,0; &#10;          1876.26123046875,0,0,0" keyTimes="0; 0.5; 1" fill="freeze"/>
+  </path>
+</svg>

@@ -1,9 +1,11 @@
-import { RiArrowDownWideLine } from "react-icons/ri";
-import Link from "next/link";
+import Demo from "@/components/Demo/Demo";
 import LogoSlider from "@/components/LogoSlider";
+import Link from "next/link";
+import { RiArrowDownWideLine } from "react-icons/ri";
 
 
 export default function Home() {
+
   return (
     <main className="min-h-screen flex flex-col justify-between items-center">
 
@@ -20,7 +22,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-10">
           <div className="flex justify-between w-[800px] ">
 
-            <Link href="#demo-1" className="px-12 py-4 rounded-[40px] border-2 border-navy flex flex-col items-center">
+            <Link href="#demo" className="px-12 py-4 rounded-[40px] border-2 border-navy flex flex-col items-center">
               <div className="text-navy font-bold text-2xl">
                 Denemek için başlat
               </div>
@@ -40,9 +42,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="demo-1">
-
-      </section>
+      <Demo />
 
     </main>
   );
