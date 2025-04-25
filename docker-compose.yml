@@ -15,3 +15,7 @@ services:
     restart: always
     networks:   
       - voyavox-network
+
+networks:
+  voyavox-network:
+    external: true
