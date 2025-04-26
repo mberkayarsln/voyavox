@@ -1,5 +1,8 @@
-import Image from "next/image"
-import Link from "next/link"
+"use client";
+
+import useInViewStore from "@/src/store/useInViewStore";
+import Image from "next/image";
+import Link from "next/link";
 
 const navItems = [
   { label: "Keşfet", href: "/" },
@@ -7,13 +10,26 @@ const navItems = [
   { label: "İletişim", href: "/" },
   { label: "Ürün", href: "/" },
   { label: "Ürün", href: "/" },
-]
+];
 
 const Header = () => {
+  const { isInViewStore } = useInViewStore();
+
   return (
     <header className="fixed w-[1024px] mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-transparent z-50">
-      <div className="relative h-[80px] w-[240px]">
-        <Image src="/logo/VoyaVox_logo2_cropped.png" alt="logo" fill />
+      <div className="relative h-[80px] w-[240px] overflow-hidden">
+        <Image
+          src="/logo/VoyaVox_logo2_cropped.png"
+          alt="Dark Logo"
+          fill
+          className={`transition-opacity duration-300 ${isInViewStore ? "opacity-0" : "opacity-100"}`}
+        />
+        <Image
+          src="/logo/VoyaVox_logo_whitetext_horizontal_cropped.png"
+          alt="White Logo"
+          fill
+          className={`absolute top-0 left-0 transition-opacity duration-300 ${isInViewStore ? "opacity-100" : "opacity-0"}`}
+        />
       </div>
 
       <nav className="flex items-center gap-8">
@@ -21,7 +37,7 @@ const Header = () => {
           <Link
             key={index}
             href={item.href}
-            className="text-navy font-bold"
+            className={`text-${isInViewStore ? "white" : "navy"} font-bold transition-colors duration-300`}
           >
             {item.label}
           </Link>
@@ -29,12 +45,15 @@ const Header = () => {
       </nav>
 
       <div>
-        <Link href="/" className="text-navy rounded-[40px] border border-navy px-8 py-2 font-bold">
+        <Link
+          href="/"
+          className={`text-${isInViewStore ? "white" : "navy"} rounded-[40px] border border-${isInViewStore ? "white" : "navy"} px-8 py-2 font-bold transition-colors duration-300`}
+        >
           Demo
         </Link>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
