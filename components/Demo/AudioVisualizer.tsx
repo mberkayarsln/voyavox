@@ -3,121 +3,126 @@
 import { useEffect, useRef, useState } from "react";
 import DemoTranscript from "./DemoTranscript";
 
+declare global {
+  interface Window {
+    webkitAudioContext?: typeof AudioContext;
+  }
+}
+
 export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const audioCtxRef = useRef<AudioContext | null>(null);
-    const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
-    const analyserRef = useRef<AnalyserNode | null>(null);
-    const animationRef = useRef<number>();
-    const [isPlaying, setIsPlaying] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const animationRef = useRef<number>();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 300 });
 
-    useEffect(() => {
-        if (!audioRef.current || !canvasRef.current) return;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCanvasSize({ width: window.innerWidth, height: 300 });
+    }
+  }, []);
 
-        if (!audioCtxRef.current) {
-            audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-        }
+  useEffect(() => {
+    if (!audioRef.current || !canvasRef.current) return;
+    if (typeof window === "undefined") return;
 
-        if (!sourceRef.current) {
-            sourceRef.current = audioCtxRef.current.createMediaElementSource(audioRef.current);
-        }
+    if (!audioCtxRef.current) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioCtxRef.current = new AudioContextClass();
+    }
 
-        if (!analyserRef.current) {
-            analyserRef.current = audioCtxRef.current.createAnalyser();
-            analyserRef.current.fftSize = 2048;
-            sourceRef.current.connect(analyserRef.current);
-            analyserRef.current.connect(audioCtxRef.current.destination);
-        }
+    if (!sourceRef.current) {
+      sourceRef.current = audioCtxRef.current.createMediaElementSource(audioRef.current);
+    }
 
-        const analyser = analyserRef.current;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+    if (!analyserRef.current) {
+      analyserRef.current = audioCtxRef.current.createAnalyser();
+      analyserRef.current.fftSize = 2048;
+      sourceRef.current.connect(analyserRef.current);
+      analyserRef.current.connect(audioCtxRef.current.destination);
+    }
 
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d")!;
-        const WIDTH = canvas.width;
-        const HEIGHT = canvas.height;
+    const analyser = analyserRef.current;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
 
-        function draw() {
-            animationRef.current = requestAnimationFrame(draw);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d")!;
+    const WIDTH = canvas.width;
+    const HEIGHT = canvas.height;
 
-            analyser.getByteTimeDomainData(dataArray);
+    function draw() {
+      animationRef.current = requestAnimationFrame(draw);
 
-            ctx.clearRect(0, 0, WIDTH, HEIGHT);
+      analyser.getByteTimeDomainData(dataArray);
 
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = "white";
-            ctx.beginPath();
+      ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-            const sliceWidth = WIDTH / bufferLength;
-            let x = 0;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "white";
+      ctx.beginPath();
 
-            for (let i = 0; i < bufferLength; i++) {
-                const v = dataArray[i] / 128.0;
-                const y = (v * HEIGHT) / 2;
+      const sliceWidth = WIDTH / bufferLength;
+      let x = 0;
 
-                if (i === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
-                x += sliceWidth;
-            }
+      for (let i = 0; i < bufferLength; i++) {
+        const v = dataArray[i] / 128.0;
+        const y = (v * HEIGHT) / 2;
 
-            ctx.lineTo(WIDTH, HEIGHT / 2);
-            ctx.stroke();
-        }
-
-        if (isPlaying) {
-            draw();
+        if (i === 0) {
+          ctx.moveTo(x, y);
         } else {
-            cancelAnimationFrame(animationRef.current!);
+          ctx.lineTo(x, y);
         }
+        x += sliceWidth;
+      }
 
-        return () => {
-            cancelAnimationFrame(animationRef.current!);
-        };
-    }, [isPlaying]);
+      ctx.lineTo(WIDTH, HEIGHT / 2);
+      ctx.stroke();
+    }
 
-    const togglePlay = async () => {
-        if (!audioRef.current || !audioCtxRef.current) return;
+    if (isPlaying) {
+      draw();
+    } else {
+      cancelAnimationFrame(animationRef.current!);
+    }
 
-        if (audioCtxRef.current.state === "suspended") {
-            await audioCtxRef.current.resume();
-        }
-
-        if (audioRef.current.paused) {
-            await audioRef.current.play();
-            setIsPlaying(true);
-        } else {
-            audioRef.current.pause();
-            setIsPlaying(false);
-        }
+    return () => {
+      cancelAnimationFrame(animationRef.current!);
     };
+  }, [isPlaying]);
 
-    useEffect(() => {
-        if (isInView) {
-            if (audioRef.current && audioCtxRef.current) {
-                audioCtxRef.current.resume();
-                audioRef.current.play();
-                setIsPlaying(true);
-            }
-        } else {
-            if (audioRef.current && audioCtxRef.current) {
-                audioCtxRef.current.suspend();
-                audioRef.current.pause();
-                setIsPlaying(false);
-            }
-        }
-    }, [isInView]);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-    return (
-        <div className="flex flex-col items-center justify-center w-full overflow-x-hidden">
-            <canvas ref={canvasRef} width={window.innerWidth} height={300} className="w-screen h-[300px]"></canvas>
-            <audio ref={audioRef} src="/voice.mp3" />
+    if (isInView) {
+      if (audioRef.current && audioCtxRef.current) {
+        audioCtxRef.current.resume();
+        audioRef.current.play();
+        setIsPlaying(true);
+      }
+    } else {
+      if (audioRef.current && audioCtxRef.current) {
+        audioCtxRef.current.suspend();
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  }, [isInView]);
 
-            <DemoTranscript audioRef={audioRef} />
-        </div >
-    );
+  return (
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden">
+      <canvas
+        ref={canvasRef}
+        width={canvasSize.width}
+        height={canvasSize.height}
+        className="w-screen h-[300px]"
+      />
+      <audio ref={audioRef} src="/voice.mp3" />
+      <DemoTranscript audioRef={audioRef} />
+    </div>
+  );
 }
