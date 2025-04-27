@@ -2,8 +2,6 @@ import Buttons from "@/components/Buttons";
 import Demo from "@/components/Demo/Demo";
 import Hero from "@/components/Hero";
 import LogoSlider from "@/components/LogoSlider";
-import Link from "next/link";
-import { RiArrowDownWideLine } from "react-icons/ri";
 
 
 export default function Home() {
