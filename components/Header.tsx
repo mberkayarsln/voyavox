@@ -17,7 +17,7 @@ const Header = () => {
   const { isInViewStore } = useInViewStore();
 
   return (
-    <header className="fixed w-full lg:w-[1024px] translate-x-1/2 right-1/2 mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-transparent z-50">
+    <header className="fixed w-full lg:w-[1024px] translate-x-1/2 right-1/2 mt-3 flex justify-between items-center px-6 sm:px-12 py-1.5 rounded-[40px] bg-transparent z-50">
       <div className="relative h-[60px] w-[180px] lg:h-[80px] lg:w-[240px] overflow-hidden">
         <Image
           src="/logo/VoyaVox_logo2_cropped.png"
