@@ -3,6 +3,7 @@
 import useInViewStore from "@/src/store/useInViewStore";
 import Image from "next/image";
 import Link from "next/link";
+import { RiMenuLine } from "react-icons/ri";
 
 const navItems = [
   { label: "Keşfet", href: "/" },
@@ -16,8 +17,8 @@ const Header = () => {
   const { isInViewStore } = useInViewStore();
 
   return (
-    <header className="fixed w-[1024px] mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-transparent z-50">
-      <div className="relative h-[80px] w-[240px] overflow-hidden">
+    <header className="fixed w-full lg:w-[1024px] translate-x-1/2 right-1/2 mt-3 flex justify-between items-center px-12 py-1.5 rounded-[40px] bg-transparent z-50">
+      <div className="relative h-[60px] w-[180px] lg:h-[80px] lg:w-[240px] overflow-hidden">
         <Image
           src="/logo/VoyaVox_logo2_cropped.png"
           alt="Dark Logo"
@@ -32,7 +33,11 @@ const Header = () => {
         />
       </div>
 
-      <nav className="flex items-center gap-8">
+      <div className="lg:hidden">
+        <RiMenuLine className="text-navy text-2xl" />
+      </div>
+
+      <nav className="hidden lg:flex items-center gap-8">
         {navItems.map((item, index) => (
           <Link
             key={index}
@@ -44,7 +49,7 @@ const Header = () => {
         ))}
       </nav>
 
-      <div>
+      <div className="hidden lg:block">
         <Link
           href="/"
           className={`text-${isInViewStore ? "white" : "navy"} rounded-[40px] border border-${isInViewStore ? "white" : "navy"} px-8 py-2 font-bold transition-colors duration-300`}

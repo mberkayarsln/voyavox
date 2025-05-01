@@ -8,17 +8,17 @@ const Buttons = () => {
     const { isInViewStore } = useInViewStore();
 
     return (
-        <div className="flex justify-between w-[800px] ">
-            <Link href="#demo" className={`px-12 py-4 rounded-[40px] border-2 border-${isInViewStore ? "white" : "navy"} flex flex-col items-center`}>
-                <div className={`text-${isInViewStore ? "white" : "navy"} font-bold text-2xl`}>
-                    Denemek için başlat
+        <div className="flex flex-col sm:flex-row justify-between w-full max-w-[800px]">
+            <Link href="#demo" className={`px-5 md:px-12 py-4 rounded-[40px] border-2 border-${isInViewStore ? "white" : "navy"} flex flex-col items-center`}>
+                <div className={`text-${isInViewStore ? "white" : "navy"} font-bold text-xl lg:text-2xl text-center`}>
+                    Diş Hatırlatma Tanıtımı
                 </div>
                 <RiArrowDownWideLine size={32} className={`text-${isInViewStore ? "white" : "navy"} font-bold`} />
             </Link>
 
-            <Link href="/" className={`px-12 py-4 rounded-[40px] border-2 border-${isInViewStore ? "white" : "navy"} flex flex-col items-center`}>
-                <div className={`text-${isInViewStore ? "white" : "navy"} font-bold text-2xl`}>
-                    Denemek için başlat
+            <Link href="/" className={`px-5 md:px-12 py-4 rounded-[40px] border-2 border-${isInViewStore ? "white" : "navy"} flex flex-col items-center`}>
+                <div className={`text-${isInViewStore ? "white" : "navy"} font-bold text-xl lg:text-2xl text-center`}>
+                    Randevu Alma Tanıtımı
                 </div>
                 <RiArrowDownWideLine size={32} className={`text-${isInViewStore ? "white" : "navy"} font-bold`} />
             </Link>

@@ -13,7 +13,7 @@ export default function Home() {
 
         <Hero />
 
-        <div className="flex flex-col items-center gap-10">
+        <div className="flex flex-col items-center gap-10 max-w-[1024px] px-12">
           <Buttons />
           <LogoSlider />
         </div>
