@@ -31,6 +31,9 @@ export default function AudioVisualizer() {
     if (!audioRef.current || !canvasRef.current) return;
     if (typeof window === "undefined") return;
 
+    /* if(audioRef.current)
+      audioRef.current.playbackRate = 2; */
+
     if (!audioCtxRef.current) {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       audioCtxRef.current = new AudioContextClass();
@@ -114,7 +117,7 @@ export default function AudioVisualizer() {
         setIsPlaying(false);
       }
     }
-  }, [isPlaying]);
+  }, [isPlaying,setIsPlaying]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden">
@@ -124,7 +127,7 @@ export default function AudioVisualizer() {
         height={canvasSize.height}
         className="w-screen h-[300px] px-12"
       />
-      <audio ref={audioRef} src="/voice.mp3" />
+      <audio ref={audioRef} src="/voicev2.mp3"  />
       <DemoTranscript audioRef={audioRef} />
     </div>
   );
