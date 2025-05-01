@@ -1,6 +1,6 @@
 "use client";
 
-import useInViewStore from "@/src/store/useInViewStore";
+import useIsPlayingStore from "@/src/store/useIsPlayingStore";
 import Image from "next/image";
 import Link from "next/link";
 import { RiMenuLine } from "react-icons/ri";
@@ -14,7 +14,7 @@ const navItems = [
 ];
 
 const Header = () => {
-  const { isInViewStore } = useInViewStore();
+  const { isPlaying } = useIsPlayingStore();
 
   return (
     <header className="fixed w-full lg:w-[1024px] translate-x-1/2 right-1/2 mt-3 flex justify-between items-center px-6 sm:px-12 py-1.5 rounded-[40px] bg-transparent z-50">
@@ -23,13 +23,13 @@ const Header = () => {
           src="/logo/VoyaVox_logo2_cropped.png"
           alt="Dark Logo"
           fill
-          className={`transition-opacity duration-300 ${isInViewStore ? "opacity-0" : "opacity-100"}`}
+          className={`transition-opacity duration-300 ${isPlaying ? "opacity-0" : "opacity-100"}`}
         />
         <Image
           src="/logo/VoyaVox_logo_whitetext_horizontal_cropped.png"
           alt="White Logo"
           fill
-          className={`absolute top-0 left-0 transition-opacity duration-300 ${isInViewStore ? "opacity-100" : "opacity-0"}`}
+          className={`absolute top-0 left-0 transition-opacity duration-300 ${isPlaying ? "opacity-100" : "opacity-0"}`}
         />
       </div>
 
@@ -42,7 +42,7 @@ const Header = () => {
           <Link
             key={index}
             href={item.href}
-            className={`text-${isInViewStore ? "white" : "navy"} font-bold transition-colors duration-300`}
+            className={`text-${isPlaying ? "white" : "navy"} font-bold transition-colors duration-300`}
           >
             {item.label}
           </Link>
@@ -52,7 +52,7 @@ const Header = () => {
       <div className="hidden lg:block">
         <Link
           href="/"
-          className={`text-${isInViewStore ? "white" : "navy"} rounded-[40px] border border-${isInViewStore ? "white" : "navy"} px-8 py-2 font-bold transition-colors duration-300`}
+          className={`text-${isPlaying ? "white" : "navy"} rounded-[40px] border border-${isPlaying ? "white" : "navy"} px-8 py-2 font-bold transition-colors duration-300`}
         >
           Demo
         </Link>

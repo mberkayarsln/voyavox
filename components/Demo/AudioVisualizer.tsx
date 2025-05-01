@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import DemoTranscript from "./DemoTranscript";
+import useIsPlayingStore from "@/src/store/useIsPlayingStore";
 
 declare global {
   interface Window {
@@ -9,15 +10,16 @@ declare global {
   }
 }
 
-export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
+export default function AudioVisualizer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const animationRef = useRef<number>();
-  const [isPlaying, setIsPlaying] = useState(false);
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 300 });
+
+  const { isPlaying, setIsPlaying } = useIsPlayingStore();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -62,7 +64,7 @@ export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
       ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
       ctx.lineWidth = 2;
-      ctx.strokeStyle = "white";
+      ctx.strokeStyle = isPlaying ? "#fff" : "#2B4967";
       ctx.beginPath();
 
       const sliceWidth = WIDTH / bufferLength;
@@ -87,6 +89,7 @@ export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
     if (isPlaying) {
       draw();
     } else {
+      draw();
       cancelAnimationFrame(animationRef.current!);
     }
 
@@ -98,7 +101,7 @@ export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (isInView) {
+    if (isPlaying) {
       if (audioRef.current && audioCtxRef.current) {
         audioCtxRef.current.resume();
         audioRef.current.play();
@@ -111,7 +114,7 @@ export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
         setIsPlaying(false);
       }
     }
-  }, [isInView]);
+  }, [isPlaying]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden">
@@ -119,7 +122,7 @@ export default function AudioVisualizer({ isInView }: { isInView: boolean }) {
         ref={canvasRef}
         width={canvasSize.width}
         height={canvasSize.height}
-        className="w-screen h-[300px]"
+        className="w-screen h-[300px] px-12"
       />
       <audio ref={audioRef} src="/voice.mp3" />
       <DemoTranscript audioRef={audioRef} />
