@@ -19,7 +19,7 @@ export default function AudioVisualizer() {
   const animationRef = useRef<number>();
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 300 });
 
-  const { isPlaying, setIsPlaying } = useIsPlayingStore();
+  const { isPlaying, setIsPlaying, source } = useIsPlayingStore();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -117,7 +117,7 @@ export default function AudioVisualizer() {
         setIsPlaying(false);
       }
     }
-  }, [isPlaying,setIsPlaying]);
+  }, [isPlaying, setIsPlaying]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden">
@@ -127,7 +127,7 @@ export default function AudioVisualizer() {
         height={canvasSize.height}
         className="w-screen h-[300px] px-12"
       />
-      <audio ref={audioRef} src="/voicev2.mp3"  />
+      <audio ref={audioRef} src={source} />
       <DemoTranscript audioRef={audioRef} />
     </div>
   );
