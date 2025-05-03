@@ -128,7 +128,7 @@ export default function AudioVisualizer() {
         className="w-screen h-[300px] px-12"
       />
       <audio ref={audioRef} src={source} />
-      <DemoTranscript audioRef={audioRef} />
+      <DemoTranscript audioRef={audioRef}/>
     </div>
   );
 }

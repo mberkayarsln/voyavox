@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { useState } from "react";
+import useLanguageStore from "@/src/store/useLanguageStore";
 
 const navItems = [
   { label: "Keşfet", href: "/" },
@@ -14,11 +15,20 @@ const navItems = [
   { label: "Test", href: "/" },
 ];
 
+const navItemsEn = [
+  { label: "Explore", href: "/" },
+  { label: "Product", href: "/" },
+  { label: "Contact", href: "/" },
+  { label: "Test", href: "/" },
+  { label: "Test", href: "/" },
+]
+
 const Header = () => {
   const { isPlaying } = useIsPlayingStore();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const { language, setLanguage } = useLanguageStore();
 
   return (
     <header className={`fixed w-full lg:w-[1024px] translate-x-1/2 right-1/2 flex justify-between items-center px-6 sm:px-12 py-5 rounded-[40px] bg-transparent z-50`}>
@@ -47,7 +57,7 @@ const Header = () => {
       </div>
 
       <nav className="hidden lg:flex items-center gap-8">
-        {navItems.map((item, index) => (
+        {(language === "tr" ? navItems : navItemsEn).map((item, index) => (
           <Link
             key={index}
             href={item.href}
@@ -59,13 +69,17 @@ const Header = () => {
       </nav>
 
       <div className="hidden lg:block">
-        <Link
-          href="/"
+        <button
+          onClick={() => {
+            const newLang = language === "tr" ? "en" : "tr";
+            setLanguage(newLang);
+          }}
           className={`rounded-[40px] border px-8 py-2 font-bold transition-colors duration-300 ${isPlaying ? "text-white border-white" : "text-navy border-navy"}`}
         >
-          Demo
-        </Link>
+          {language === "tr" ? "EN" : "TR"}
+        </button>
       </div>
+
 
       {/* Mobile Menu */}
       <div
@@ -91,13 +105,17 @@ const Header = () => {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/"
-            onClick={toggleMenu}
+          <button
+            onClick={() => {
+              const newLang = language === "tr" ? "en" : "tr";
+              setLanguage(newLang);
+              toggleMenu();
+            }}
             className="text-white font-bold border border-white rounded-full px-6 py-2 mt-4"
           >
-            Demo
-          </Link>
+            {language === "tr" ? "EN" : "TR"}
+          </button>
+
         </div>
       </div>
     </header>
