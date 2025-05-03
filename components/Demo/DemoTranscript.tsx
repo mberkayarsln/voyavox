@@ -58,10 +58,10 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
                     </p>
                 );
             })}
-            {!isPlaying ? <div className="flex items-center justify-center gap-2 text-navy border-2 font-bold border-navy w-40 text-center px-6 py-4 rounded-full text-lg mt-4" onClick={() => handleDemoStart(setIsPlaying)}>
+            {!isPlaying ? <div className="cursor-pointer flex items-center justify-center gap-2 text-navy border-2 font-bold border-navy w-40 text-center px-6 py-4 rounded-full text-lg mt-4" onClick={() => handleDemoStart(setIsPlaying)}>
                 <RiPlayCircleLine className="text-3xl" /> {language === "tr" ? "Başlat" : "Start"}
             </div> :
-                <div className="flex items-center justify-center gap-2 text-white w-40 text-center font-bold px-6 py-4 rounded-full text-lg bg-[linear-gradient(to_right,_rgba(43,73,103,0.3),_rgba(233,188,253,0.3))] mt-4" onClick={() => handleDemoStop(setIsPlaying)}>
+                <div className="cursor-pointer flex items-center justify-center gap-2 text-white w-40 text-center font-bold px-6 py-4 rounded-full text-lg bg-[linear-gradient(to_right,_rgba(43,73,103,0.3),_rgba(233,188,253,0.3))] mt-4" onClick={() => handleDemoStop(setIsPlaying)}>
                     <RiStopCircleLine className="text-3xl" /> {language === "tr" ? "Durdur" : "Stop"}
                 </div>}
         </div>
