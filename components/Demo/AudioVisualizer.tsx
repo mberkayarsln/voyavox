@@ -127,7 +127,7 @@ export default function AudioVisualizer() {
         height={canvasSize.height}
         className="w-screen h-[300px] px-12"
       />
-      <audio ref={audioRef} src={source} />
+      <audio ref={audioRef} src={source ? source : "/voice1.mp3"} />
       <DemoTranscript audioRef={audioRef}/>
     </div>
   );

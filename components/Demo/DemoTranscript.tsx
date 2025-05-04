@@ -3,12 +3,12 @@ import useIsPlayingStore from "@/src/store/useIsPlayingStore";
 import useLanguageStore from "@/src/store/useLanguageStore";
 import { handleDemoStart, handleDemoStop, transcripts } from "@/src/utils/demo";
 import { useEffect, useState } from "react";
-import { RiPlayCircleLine, RiStopCircleLine } from "react-icons/ri";
+import { RiArrowDownWideLine, RiPlayCircleLine, RiStopCircleLine } from "react-icons/ri";
 
 export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject<HTMLAudioElement> }) {
     const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
-    const { isPlaying, setIsPlaying, source } = useIsPlayingStore();
+    const { isPlaying, setIsPlaying, source, setSource } = useIsPlayingStore();
     const { language } = useLanguageStore();
 
     const [transcript, setTranscript] = useState<{ text: string; start: number }[]>([]);
@@ -58,12 +58,23 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
                     </p>
                 );
             })}
-            {!isPlaying ? <div className="cursor-pointer flex items-center justify-center gap-2 text-navy border-2 font-bold border-navy w-40 text-center px-6 py-4 rounded-full text-lg mt-4" onClick={() => handleDemoStart(setIsPlaying)}>
-                <RiPlayCircleLine className="text-3xl" /> {language === "tr" ? "Başlat" : "Start"}
-            </div> :
-                <div className="cursor-pointer flex items-center justify-center gap-2 text-white w-40 text-center font-bold px-6 py-4 rounded-full text-lg bg-[linear-gradient(to_right,_rgba(43,73,103,0.3),_rgba(233,188,253,0.3))] mt-4" onClick={() => handleDemoStop(setIsPlaying)}>
-                    <RiStopCircleLine className="text-3xl" /> {language === "tr" ? "Durdur" : "Stop"}
-                </div>}
+            <div className="flex items-center justify-center gap-4">
+                {!isPlaying ? <div className="cursor-pointer flex items-center justify-center gap-2 text-navy border-2 font-bold border-navy w-auto sm:w-40 text-center px-6 py-4 rounded-full text-lg mt-4" onClick={() => handleDemoStart(setIsPlaying)}>
+                    <RiPlayCircleLine className="text-3xl" /> <span className="hidden sm:inline">{language === "tr" ? "Başlat" : "Start"}</span>
+                </div> :
+                    <div className="cursor-pointer flex items-center justify-center gap-2 text-white w-auto sm:w-40 text-center font-bold px-6 py-4 rounded-full text-lg bg-[linear-gradient(to_right,_rgba(43,73,103,0.3),_rgba(233,188,253,0.3))] mt-4" onClick={() => handleDemoStop(setIsPlaying)}>
+                        <RiStopCircleLine className="text-3xl" /> <span className="hidden sm:inline">{language === "tr" ? "Durdur" : "Stop"}</span>
+                    </div>}
+                <div className="relative mt-4">
+                    <select className={`appearance-none cursor-pointer bg-${isPlaying ? "white" : "transparent"} flex items-center justify-center gap-2 text-${isPlaying ? "navy" : "navy"} ${isPlaying ? "border-none" : "border-2"} font-bold border-navy w-56 text-center px-6 py-4 rounded-full text-lg`} onChange={(e) => setSource(e.target.value)} value={source} disabled={isPlaying}>
+                        <option value="/voice1.mp3">{language === "tr" ? "Diş Hatırlatma" : "Dental Reminder"}</option>
+                        <option value="/voice2.mp3">{language === "tr" ? "Randevu Alma" : "Appt. Reminder"}</option>
+                    </select>
+                    <div className={`${isPlaying ? "hidden" : "block"} absolute right-4 top-1/2 -translate-y-1/2  pointer-events-none`}>
+                        <RiArrowDownWideLine className="text-2xl text-navy" />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
