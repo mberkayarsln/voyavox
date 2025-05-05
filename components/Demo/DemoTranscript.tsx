@@ -17,18 +17,18 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
         const interval = setInterval(() => {
             const currentTime = audioRef.current?.currentTime ?? 0;
 
-            if (language === "tr") {
-                if (source === "/voice1.mp3") {
-                    setTranscript(transcripts.voice1.tr);
-                }
-                else
-                    setTranscript(transcripts.voice2.tr);
-            }
-            else {
-                if (source === "/voice1.mp3")
-                    setTranscript(transcripts.voice1.en);
-                else
-                    setTranscript(transcripts.voice2.en);
+            switch (source) {
+                case "/voice1.mp3":
+                    setTranscript(transcripts.voice1);
+                    break;
+                case "/voice2.mp3":
+                    setTranscript(transcripts.voice2);
+                case "/voice3.mp3":
+                    setTranscript(transcripts.voice3);
+                case "/voice4.mp3":
+                    setTranscript(transcripts.voice4);
+                default:
+                    break;
             }
 
             const index = transcript.findIndex((msg, i) => {
@@ -41,6 +41,10 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
 
         return () => clearInterval(interval);
     }, [audioRef, source, language, transcript]);
+
+    useEffect(() => {
+        setSource(language === "tr" ? "/voice1.mp3" : "/voice3.mp3");
+    },[language])
 
     const visibleMessages = transcript.slice(Math.max(0, currentIndex - 3), currentIndex + 1);
 
@@ -67,8 +71,8 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
                     </div>}
                 <div className="relative mt-4">
                     <select className={`appearance-none cursor-pointer bg-${isPlaying ? "white" : "transparent"} flex items-center justify-center gap-2 text-${isPlaying ? "navy" : "navy"} ${isPlaying ? "border-none" : "border-2"} font-bold border-navy w-56 text-center px-6 py-4 rounded-full text-lg`} onChange={(e) => setSource(e.target.value)} value={source} disabled={isPlaying}>
-                        <option value="/voice1.mp3">{language === "tr" ? "Diş Hatırlatma" : "Dental Reminder"}</option>
-                        <option value="/voice2.mp3">{language === "tr" ? "Randevu Alma" : "Appt. Reminder"}</option>
+                        <option value={language === "tr" ? "/voice1.mp3" : "/voice3.mp3"}>{language === "tr" ? "Diş Hatırlatma" : "Dental Reminder"}</option>
+                        <option value={language === "tr" ? "/voice2.mp3" : "/voice4.mp3"}>{language === "tr" ? "Randevu Alma" : "Appt. Reminder"}</option>
                     </select>
                     <div className={`${isPlaying ? "hidden" : "block"} absolute right-4 top-1/2 -translate-y-1/2  pointer-events-none`}>
                         <RiArrowDownWideLine className="text-2xl text-navy" />
