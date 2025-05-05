@@ -11,12 +11,14 @@ const navItems = [
   { label: "Keşfet", href: "/" },
   { label: "Ürün", href: "#demo" },
   { label: "İletişim", href: "mailto:info@voyavox.com" },
+  { label: "Demo Talep", href: "https://docs.google.com/forms/d/e/1FAIpQLSfonAa1IxWoqlHxcwv5iAjv9ommE4KY9TyPXV1fyElFLWMRFQ/viewform?usp=header" }
 ];
 
 const navItemsEn = [
   { label: "Explore", href: "/" },
   { label: "Product", href: "#demo" },
   { label: "Contact", href: "mailto:info@voyavox.com" },
+  { label: "Request Demo", href: "https://docs.google.com/forms/d/e/1FAIpQLSfonAa1IxWoqlHxcwv5iAjv9ommE4KY9TyPXV1fyElFLWMRFQ/viewform?usp=header" }
 ]
 
 const Header = () => {
@@ -91,7 +93,7 @@ const Header = () => {
             className="mb-4"
           />
 
-          {navItems.map((item, index) => (
+          {(language === "tr" ? navItems : navItemsEn).map((item, index) => (
             <Link
               key={index}
               href={item.href}

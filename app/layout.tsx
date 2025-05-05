@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import { Quicksand } from "next/font/google"
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Voyavox",
@@ -29,6 +30,7 @@ export default function RootLayout({
         <div className="max-w-[1024px] mx-auto">
           <Header />
           {children}
+          <Footer />
         </div>
       </body>
     </html>
