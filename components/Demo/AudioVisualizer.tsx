@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import DemoTranscript from "./DemoTranscript";
 import useIsPlayingStore from "@/src/store/useIsPlayingStore";
+import { handleDemoStop } from "@/src/utils/demo";
 
 declare global {
   interface Window {
@@ -31,7 +32,7 @@ export default function AudioVisualizer() {
     if (!audioRef.current || !canvasRef.current) return;
     if (typeof window === "undefined") return;
 
-    /* if(audioRef.current)
+    /* if (audioRef.current)
       audioRef.current.playbackRate = 2; */
 
     if (!audioCtxRef.current) {
@@ -119,6 +120,22 @@ export default function AudioVisualizer() {
     }
   }, [isPlaying, setIsPlaying]);
 
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    const audio = audioRef.current;
+
+    const handleEnded = () => {
+      handleDemoStop(setIsPlaying);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, [setIsPlaying]);
+
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden">
       <canvas
@@ -128,7 +145,7 @@ export default function AudioVisualizer() {
         className="w-screen h-[300px] px-12"
       />
       <audio ref={audioRef} src={source ? source : "/voice1.mp3"} />
-      <DemoTranscript audioRef={audioRef}/>
+      <DemoTranscript audioRef={audioRef} />
     </div>
   );
 }

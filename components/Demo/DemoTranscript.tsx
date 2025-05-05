@@ -23,10 +23,13 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
                     break;
                 case "/voice2.mp3":
                     setTranscript(transcripts.voice2);
+                    break;
                 case "/voice3.mp3":
                     setTranscript(transcripts.voice3);
+                    break;
                 case "/voice4.mp3":
                     setTranscript(transcripts.voice4);
+                    break;
                 default:
                     break;
             }
