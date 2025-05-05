@@ -9,18 +9,14 @@ import useLanguageStore from "@/src/store/useLanguageStore";
 
 const navItems = [
   { label: "Keşfet", href: "/" },
-  { label: "Ürün", href: "/" },
-  { label: "İletişim", href: "/" },
-  { label: "Test", href: "/" },
-  { label: "Test", href: "/" },
+  { label: "Ürün", href: "#demo" },
+  { label: "İletişim", href: "mailto:info@voyavox.com" },
 ];
 
 const navItemsEn = [
   { label: "Explore", href: "/" },
-  { label: "Product", href: "/" },
-  { label: "Contact", href: "/" },
-  { label: "Test", href: "/" },
-  { label: "Test", href: "/" },
+  { label: "Product", href: "#demo" },
+  { label: "Contact", href: "mailto:info@voyavox.com" },
 ]
 
 const Header = () => {
@@ -33,7 +29,7 @@ const Header = () => {
   return (
     <header className={`fixed w-full lg:w-[1024px] translate-x-1/2 right-1/2 flex justify-between items-center px-6 sm:px-12 py-5 rounded-[40px] bg-transparent z-50`}>
 
-      <div className="relative h-[60px] w-[180px] lg:h-[70px] lg:w-[220px] overflow-hidden">
+      <Link href="/" className="relative h-[60px] w-[180px] lg:h-[70px] lg:w-[220px] overflow-hidden">
         <Image
           src="/logo/VoyaVox_logo2_cropped.png"
           alt="Dark Logo"
@@ -46,7 +42,7 @@ const Header = () => {
           fill
           className={`absolute top-0 left-0 transition-opacity duration-300 ${isPlaying ? "opacity-100" : "opacity-0"}`}
         />
-      </div>
+      </Link>
 
       <div className="lg:hidden z-50">
         {menuOpen ? (
