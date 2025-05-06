@@ -73,9 +73,9 @@ export default function DemoTranscript({ audioRef }: { audioRef: React.RefObject
                         <RiStopCircleLine className="text-3xl" /> <span className="hidden sm:inline">{language === "tr" ? "Durdur" : "Stop"}</span>
                     </div>}
                 <div className="relative mt-4">
-                    <select className={`appearance-none cursor-pointer bg-${isPlaying ? "white" : "transparent"} flex items-center justify-center gap-2 text-${isPlaying ? "navy" : "navy"} ${isPlaying ? "border-none" : "border-2"} font-bold border-navy w-56 text-center px-6 py-4 rounded-full text-lg`} onChange={(e) => setSource(e.target.value)} value={source} disabled={isPlaying}>
-                        <option value={language === "tr" ? "/voice1.mp3" : "/voice3.mp3"}>{language === "tr" ? "Diş Hatırlatma" : "Dental Reminder"}</option>
-                        <option value={language === "tr" ? "/voice2.mp3" : "/voice4.mp3"}>{language === "tr" ? "Randevu Alma" : "Appt. Reminder"}</option>
+                    <select className={`appearance-none cursor-pointer bg-${isPlaying ? "white" : "transparent"} flex items-center justify-center gap-2 text-${isPlaying ? "navy" : "navy"} ${isPlaying ? "border-none" : "border-2"} font-bold border-navy w-64 text-center px-6 py-4 rounded-full text-lg`} onChange={(e) => setSource(e.target.value)} value={source} disabled={isPlaying}>
+                        <option value={language === "tr" ? "/voice1.mp3" : "/voice3.mp3"}>{language === "tr" ? "Randevu Teyit" : "Appt. Confirmation"}</option>
+                        <option value={language === "tr" ? "/voice2.mp3" : "/voice4.mp3"}>{language === "tr" ? "Kontrol Hatırlatma" : "Control Reminder"}</option>
                     </select>
                     <div className={`${isPlaying ? "hidden" : "block"} absolute right-4 top-1/2 -translate-y-1/2  pointer-events-none`}>
                         <RiArrowDownWideLine className="text-2xl text-navy" />

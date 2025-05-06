@@ -9,11 +9,11 @@ const footerElements = [
         title: "Demolar",
         links: [
             {
-                title: "Diş Hatırlatma",
+                title: "Randevu Teyit",
                 link: "/voice1.mp3"
             },
             {
-                title: "Randevu Hatırlatma",
+                title: "Kontrol Hatırlatma",
                 link: "/voice2.mp3"
             },
         ]
@@ -39,8 +39,8 @@ const footerElements = [
                 link: "mailto:info@voyavox.com"
             },
             {
-                title: "+90 5xx xxx xxx",
-                link: "tel:+905xxxxxxxxx"
+                title: "+90 212 702 86 92",
+                link: "tel:+90 212 702 86 92"
             },
             {
                 title: "Instagram",
@@ -55,11 +55,11 @@ const footerElementsEn = [
         title: "Demos",
         links: [
             {
-                title: "Dental Reminder",
+                title: "Appt. Confirmation",
                 link: "/voice3.mp3"
             },
             {
-                title: "Appointment Reminder",
+                title: "Control Reminder",
                 link: "/voice4.mp3"
             },
         ]
@@ -85,8 +85,8 @@ const footerElementsEn = [
                 link: "mailto:info@voyavox.com"
             },
             {
-                title: "+90 5xx xxx xxx",
-                link: "tel:+905xxxxxxxxx"
+                title: "+90 212 702 86 92",
+                link: "tel:+90 212 702 86 92"
             },
             {
                 title: "Instagram",
